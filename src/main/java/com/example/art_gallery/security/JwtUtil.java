@@ -1,4 +1,4 @@
-package com.example.First.project.security;
+package com.example.art_gallery.security;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -17,9 +17,10 @@ public class JwtUtil {
 
     private final long EXPIRATION = 1000 * 60 * 60 * 24;
 
-    public String generateToken(String email) {
+    public String generateToken(String email, String role) {
         return Jwts.builder()
                 .setSubject(email)
+                .claim("role", role)
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION))
                 .signWith(SECRET_KEY)
@@ -47,5 +48,9 @@ public class JwtUtil {
                 .build()
                 .parseClaimsJws(token)
                 .getBody();
+    }
+
+    public String extractRole(String token) {
+        return getClaims(token).get("role", String.class);
     }
 }

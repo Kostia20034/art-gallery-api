@@ -1,11 +1,12 @@
-package com.example.First.project.security;
+package com.example.art_gallery.security;
 
-import com.example.First.project.repository.UserRepository;
+import com.example.art_gallery.repository.UserRepository;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
@@ -13,6 +14,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 @Component
 public class JwtFilter extends OncePerRequestFilter {
@@ -46,11 +48,14 @@ public class JwtFilter extends OncePerRequestFilter {
         }
 
         String email = jwtUtil.extractEmail(token);
+        String role = jwtUtil.extractRole(token);
 
         userRepository.findByEmail(email).ifPresent(user -> {
+            List<SimpleGrantedAuthority> authorities =
+                    List.of(new SimpleGrantedAuthority(role));
             UsernamePasswordAuthenticationToken auth =
                     new UsernamePasswordAuthenticationToken(
-                            email, null, new ArrayList<>()
+                            email, null, authorities
                     );
             auth.setDetails(
                     new WebAuthenticationDetailsSource().buildDetails(request)

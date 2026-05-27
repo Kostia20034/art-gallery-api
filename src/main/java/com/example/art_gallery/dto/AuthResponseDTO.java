@@ -1,4 +1,4 @@
-package com.example.First.project.dto;
+package com.example.art_gallery.dto;
 
 public class AuthResponseDTO {
     private String token;

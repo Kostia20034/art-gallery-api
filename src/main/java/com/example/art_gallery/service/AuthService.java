@@ -1,12 +1,13 @@
-package com.example.First.project.service;
+package com.example.art_gallery.service;
 
-import com.example.First.project.dto.AuthResponseDTO;
-import com.example.First.project.dto.LoginRequestDTO;
-import com.example.First.project.dto.RegisterRequestDTO;
-import com.example.First.project.exceptions.ProductNotFoundException;
-import com.example.First.project.model.User;
-import com.example.First.project.repository.UserRepository;
-import com.example.First.project.security.JwtUtil;
+import com.example.art_gallery.dto.AuthResponseDTO;
+import com.example.art_gallery.dto.LoginRequestDTO;
+import com.example.art_gallery.dto.RegisterRequestDTO;
+import com.example.art_gallery.model.Role;
+import com.example.art_gallery.security.JwtUtil;
+import com.example.art_gallery.model.User;
+import com.example.art_gallery.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +17,9 @@ public class AuthService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final JwtUtil jwtUtil;
+
+    @Value("${admin.email}")
+    private String adminEmail;
 
     public AuthService(UserRepository userRepository,
                        PasswordEncoder passwordEncoder,
@@ -36,11 +40,17 @@ public class AuthService {
         user.setEmail(request.getEmail());
         user.setPassword(passwordEncoder.encode(request.getPassword()));
 
+        if (request.getEmail().equals(adminEmail)) {
+            user.setRole(Role.ROLE_ADMIN);
+        } else {
+            user.setRole(Role.ROLE_USER);
+        }
+
         // save to DB
         userRepository.save(user);
 
         // generate token and return
-        String token = jwtUtil.generateToken(user.getEmail());
+        String token = jwtUtil.generateToken(user.getEmail(), user.getRole().name());
         return new AuthResponseDTO(token);
     }
 
@@ -55,7 +65,7 @@ public class AuthService {
         }
 
         // generate token and return
-        String token = jwtUtil.generateToken(user.getEmail());
+        String token = jwtUtil.generateToken(user.getEmail(), user.getRole().name());
         return new AuthResponseDTO(token);
     }
 }

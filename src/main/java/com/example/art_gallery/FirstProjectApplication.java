@@ -1,4 +1,4 @@
-package com.example.First.project;
+package com.example.art_gallery;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
