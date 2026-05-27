@@ -1,6 +1,6 @@
-package com.example.First.project.security;
+package com.example.art_gallery.security;
 
-import com.example.First.project.repository.UserRepository;
+import com.example.art_gallery.repository.UserRepository;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

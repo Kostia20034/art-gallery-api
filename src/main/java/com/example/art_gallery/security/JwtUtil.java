@@ -1,4 +1,4 @@
-package com.example.First.project.security;
+package com.example.art_gallery.security;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;

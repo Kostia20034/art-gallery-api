@@ -1,12 +1,11 @@
-package com.example.First.project.service;
+package com.example.art_gallery.service;
 
-import com.example.First.project.dto.AuthResponseDTO;
-import com.example.First.project.dto.LoginRequestDTO;
-import com.example.First.project.dto.RegisterRequestDTO;
-import com.example.First.project.exceptions.ProductNotFoundException;
-import com.example.First.project.model.User;
-import com.example.First.project.repository.UserRepository;
-import com.example.First.project.security.JwtUtil;
+import com.example.art_gallery.dto.AuthResponseDTO;
+import com.example.art_gallery.dto.LoginRequestDTO;
+import com.example.art_gallery.dto.RegisterRequestDTO;
+import com.example.art_gallery.security.JwtUtil;
+import com.example.art_gallery.model.User;
+import com.example.art_gallery.repository.UserRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 

@@ -1,4 +1,4 @@
-package com.example.First.project.dto;
+package com.example.art_gallery.dto;
 
 import jakarta.validation.constraints.NotBlank;
 

@@ -1,9 +1,9 @@
-package com.example.First.project.controller;
+package com.example.art_gallery.controller;
 
-import com.example.First.project.dto.AuthResponseDTO;
-import com.example.First.project.dto.LoginRequestDTO;
-import com.example.First.project.dto.RegisterRequestDTO;
-import com.example.First.project.service.AuthService;
+import com.example.art_gallery.dto.AuthResponseDTO;
+import com.example.art_gallery.dto.LoginRequestDTO;
+import com.example.art_gallery.dto.RegisterRequestDTO;
+import com.example.art_gallery.service.AuthService;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

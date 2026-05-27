@@ -1,6 +1,6 @@
-package com.example.First.project.repository;
+package com.example.art_gallery.repository;
 
-import com.example.First.project.model.User;
+import com.example.art_gallery.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import java.util.Optional;
