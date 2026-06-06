@@ -40,9 +40,9 @@ public class SecurityConfig {
                         .requestMatchers("/v3/api-docs/**").permitAll()
                         .requestMatchers("/api/v1/auth/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/v1/artworks/**").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/api/v1/artworks/**").permitAll()
-                        .requestMatchers(HttpMethod.PUT, "/api/v1/artworks/**").permitAll()
-                        .requestMatchers(HttpMethod.DELETE, "/api/v1/artworks/**").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/api/v1/artworks/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.PUT, "/api/v1/artworks/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.DELETE, "/api/v1/artworks/**").hasRole("ADMIN")
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(jwtFilter,
@@ -70,14 +70,4 @@ public class SecurityConfig {
         }};
     }
 
-    @Bean
-    public UserDetailsService userDetailsService() {
-        return username -> userRepository.findByEmail(username)
-                .map(user -> org.springframework.security.core.userdetails.User
-                        .withUsername(user.getEmail())
-                        .password(user.getPassword())
-                        .authorities(user.getRole().name())
-                        .build())
-                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
-    }
 }
