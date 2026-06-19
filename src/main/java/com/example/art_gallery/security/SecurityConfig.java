@@ -1,5 +1,8 @@
 package com.example.art_gallery.security;
 
+import com.example.art_gallery.repository.UserRepository;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -19,9 +22,11 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class SecurityConfig {
 
     private final JwtFilter jwtFilter;
+    private final UserRepository userRepository;  // ← ADD
 
-    public SecurityConfig(JwtFilter jwtFilter) {
+    public SecurityConfig(JwtFilter jwtFilter, UserRepository userRepository) {
         this.jwtFilter = jwtFilter;
+        this.userRepository = userRepository;
     }
 
     @Bean
@@ -35,6 +40,12 @@ public class SecurityConfig {
                         .requestMatchers("/v3/api-docs/**").permitAll()
                         .requestMatchers("/api/v1/auth/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/v1/artworks/**").permitAll()
+<<<<<<< HEAD
+=======
+                        .requestMatchers(HttpMethod.POST, "/api/v1/artworks/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.PUT, "/api/v1/artworks/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.DELETE, "/api/v1/artworks/**").hasRole("ADMIN")
+>>>>>>> 0fdd7c1fd0a33e5804464faa592cd91ea66701f4
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(jwtFilter,
@@ -61,4 +72,5 @@ public class SecurityConfig {
             registerCorsConfiguration("/**", config);
         }};
     }
+
 }
