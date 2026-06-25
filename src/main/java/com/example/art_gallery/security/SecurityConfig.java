@@ -40,12 +40,9 @@ public class SecurityConfig {
                         .requestMatchers("/v3/api-docs/**").permitAll()
                         .requestMatchers("/api/v1/auth/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/v1/artworks/**").permitAll()
-<<<<<<< HEAD
-=======
                         .requestMatchers(HttpMethod.POST, "/api/v1/artworks/**").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.PUT, "/api/v1/artworks/**").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.DELETE, "/api/v1/artworks/**").hasRole("ADMIN")
->>>>>>> 0fdd7c1fd0a33e5804464faa592cd91ea66701f4
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(jwtFilter,

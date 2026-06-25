@@ -3,17 +3,14 @@ package com.example.art_gallery.service;
 import com.example.art_gallery.dto.AuthResponseDTO;
 import com.example.art_gallery.dto.LoginRequestDTO;
 import com.example.art_gallery.dto.RegisterRequestDTO;
-<<<<<<< HEAD
 import com.example.art_gallery.security.JwtUtil;
 import com.example.art_gallery.model.User;
 import com.example.art_gallery.repository.UserRepository;
-=======
 import com.example.art_gallery.model.Role;
 import com.example.art_gallery.security.JwtUtil;
 import com.example.art_gallery.model.User;
 import com.example.art_gallery.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Value;
->>>>>>> 0fdd7c1fd0a33e5804464faa592cd91ea66701f4
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
