@@ -2,9 +2,10 @@ package com.example.art_gallery.security;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+import jakarta.annotation.PostConstruct;
 
 import java.security.Key;
 import java.util.Date;
@@ -12,9 +13,17 @@ import java.util.Date;
 @Component
 public class JwtUtil {
 
-    private final Key SECRET_KEY = Keys.secretKeyFor(SignatureAlgorithm.HS256);
+    @Value("${jwt.secret}")
+    private String secret;
+
+    private Key SECRET_KEY;
 
     private final long EXPIRATION = 1000 * 60 * 60 * 24;
+
+    @PostConstruct
+    public void init() {
+        SECRET_KEY = Keys.hmacShaKeyFor(secret.getBytes());
+    }
 
     public String generateToken(String email, String role) {
         return Jwts.builder()
@@ -23,14 +32,13 @@ public class JwtUtil {
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION))
                 .signWith(SECRET_KEY)
-                .compact(); // return as string
+                .compact();
     }
 
     public String extractEmail(String token) {
         return getClaims(token).getSubject();
     }
 
-    // check if token is valid or not
     public boolean isTokenValid(String token) {
         try {
             getClaims(token);
@@ -40,7 +48,6 @@ public class JwtUtil {
         }
     }
 
-    // extract all data from token
     private Claims getClaims(String token) {
         return Jwts.parserBuilder()
                 .setSigningKey(SECRET_KEY)
