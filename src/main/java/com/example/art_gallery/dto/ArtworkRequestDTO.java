@@ -19,14 +19,7 @@ public class ArtworkRequestDTO {
     @NotNull(message = "Category is required")
     private Category category;
 
-    @NotBlank(message = "Medium cannot be blank")
-    private String medium;
-
-    @Min(value = 0, message = "Price cannot be negative")
-    private double price;
-
     private boolean featured = false;
-    private boolean available = true;
 
     // Getters and Setters
     public String getTitle() { return title; }
@@ -41,15 +34,6 @@ public class ArtworkRequestDTO {
     public Category getCategory() { return category; }
     public void setCategory(Category category) { this.category = category; }
 
-    public String getMedium() { return medium; }
-    public void setMedium(String medium) { this.medium = medium; }
-
-    public double getPrice() { return price; }
-    public void setPrice(double price) { this.price = price; }
-
     public boolean isFeatured() { return featured; }
     public void setFeatured(boolean featured) { this.featured = featured; }
-
-    public boolean isAvailable() { return available; }
-    public void setAvailable(boolean available) { this.available = available; }
 }

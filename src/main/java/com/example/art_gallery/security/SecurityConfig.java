@@ -22,7 +22,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class SecurityConfig {
 
     private final JwtFilter jwtFilter;
-    private final UserRepository userRepository;  // ← ADD
+    private final UserRepository userRepository;
 
     public SecurityConfig(JwtFilter jwtFilter, UserRepository userRepository) {
         this.jwtFilter = jwtFilter;
@@ -39,6 +39,7 @@ public class SecurityConfig {
                         .requestMatchers("/swagger-ui/**").permitAll()
                         .requestMatchers("/v3/api-docs/**").permitAll()
                         .requestMatchers("/api/v1/auth/**").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/api/v1/contact").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/v1/artworks/**").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/v1/artworks/**").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.PUT, "/api/v1/artworks/**").hasRole("ADMIN")
@@ -59,12 +60,14 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
-        config.addAllowedOrigin("http://localhost:5173");  // React dev server
+        config.addAllowedOrigin("http://localhost:5173");
+        config.addAllowedOrigin("http://127.0.0.1:5173");
         config.addAllowedOrigin("https://product-frontend-vm4l.vercel.app");
         config.addAllowedOriginPattern("https://*-kostia-s-projects2.vercel.app");
         config.addAllowedOriginPattern("https://product-frontend-*.vercel.app");
-        config.addAllowedMethod("*");   // GET, POST, PUT, DELETE
-        config.addAllowedHeader("*");   // Authorization, Content-Type etc
+        config.addAllowedMethod("*");
+        config.addAllowedHeader("*");
+        config.setAllowCredentials(true);
         return new UrlBasedCorsConfigurationSource() {{
             registerCorsConfiguration("/**", config);
         }};

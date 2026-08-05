@@ -50,10 +50,7 @@ public class ArtworkService {
         artwork.setDescription(dto.getDescription());
         artwork.setImageUrl(dto.getImageUrl());
         artwork.setCategory(dto.getCategory());
-        artwork.setMedium(dto.getMedium());
-        artwork.setPrice(dto.getPrice());
         artwork.setFeatured(dto.isFeatured());
-        artwork.setAvailable(dto.isAvailable());
         Artwork saved = repo.save(artwork);
         return toResponseDTO(saved);
     }
@@ -65,10 +62,7 @@ public class ArtworkService {
         existing.setDescription(dto.getDescription());
         existing.setImageUrl(dto.getImageUrl());
         existing.setCategory(dto.getCategory());
-        existing.setMedium(dto.getMedium());
-        existing.setPrice(dto.getPrice());
         existing.setFeatured(dto.isFeatured());
-        existing.setAvailable(dto.isAvailable());
         Artwork saved = repo.save(existing);
         return toResponseDTO(saved);
     }
@@ -86,10 +80,7 @@ public class ArtworkService {
         dto.setDescription(artwork.getDescription());
         dto.setImageUrl(artwork.getImageUrl());
         dto.setCategory(artwork.getCategory());
-        dto.setMedium(artwork.getMedium());
-        dto.setPrice(artwork.getPrice());
         dto.setFeatured(artwork.isFeatured());
-        dto.setAvailable(artwork.isAvailable());
         dto.setCreatedAt(artwork.getCreatedAt());
         return dto;
     }

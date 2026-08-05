@@ -50,8 +50,6 @@ public class JwtFilter extends OncePerRequestFilter {
         String email = jwtUtil.extractEmail(token);
         String role = jwtUtil.extractRole(token);
 
-        System.out.println("Email: " + email);
-        System.out.println("Role: " + role);
 
         userRepository.findByEmail(email).ifPresent(user -> {
             List<SimpleGrantedAuthority> authorities =

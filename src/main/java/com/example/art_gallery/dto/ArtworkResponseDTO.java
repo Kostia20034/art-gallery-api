@@ -10,13 +10,9 @@ public class ArtworkResponseDTO {
     private String description;
     private String imageUrl;
     private Category category;
-    private String medium;
-    private double price;
     private boolean featured;
-    private boolean available;
     private LocalDateTime createdAt;
 
-    // Getters and Setters
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }
 
@@ -32,17 +28,8 @@ public class ArtworkResponseDTO {
     public Category getCategory() { return category; }
     public void setCategory(Category category) { this.category = category; }
 
-    public String getMedium() { return medium; }
-    public void setMedium(String medium) { this.medium = medium; }
-
-    public double getPrice() { return price; }
-    public void setPrice(double price) { this.price = price; }
-
     public boolean isFeatured() { return featured; }
     public void setFeatured(boolean featured) { this.featured = featured; }
-
-    public boolean isAvailable() { return available; }
-    public void setAvailable(boolean available) { this.available = available; }
 
     public LocalDateTime getCreatedAt() { return createdAt; }
     public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }

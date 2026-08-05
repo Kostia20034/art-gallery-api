@@ -5,5 +5,6 @@ public enum Category {
     PORTRAIT,
     ABSTRACT,
     STILL_LIFE,
+    LANDSCAPE,
     OTHER
 }

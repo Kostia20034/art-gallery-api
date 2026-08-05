@@ -12,7 +12,6 @@ import java.util.Date;
 @Component
 public class JwtUtil {
 
-    // 2 fields secret key and expiration date
     private final Key SECRET_KEY = Keys.secretKeyFor(SignatureAlgorithm.HS256);
 
     private final long EXPIRATION = 1000 * 60 * 60 * 24;

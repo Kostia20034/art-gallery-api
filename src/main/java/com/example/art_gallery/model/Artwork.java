@@ -27,14 +27,7 @@ public class Artwork {
     @NotNull(message = "Category is required")
     private Category category;
 
-    @NotBlank(message = "Medium cannot be blank")
-    private String medium;  // "Oil on canvas", "Watercolor" etc
-
-    @Min(value = 0, message = "Price cannot be negative")
-    private double price;  // store now, display later
-
     private boolean featured = false;  // show on homepage?
-    private boolean available = true;  // available for purchase?
 
     @Column(updatable = false)
     private LocalDateTime createdAt;
@@ -60,17 +53,8 @@ public class Artwork {
     public Category getCategory() { return category; }
     public void setCategory(Category category) { this.category = category; }
 
-    public String getMedium() { return medium; }
-    public void setMedium(String medium) { this.medium = medium; }
-
-    public double getPrice() { return price; }
-    public void setPrice(double price) { this.price = price; }
-
     public boolean isFeatured() { return featured; }
     public void setFeatured(boolean featured) { this.featured = featured; }
-
-    public boolean isAvailable() { return available; }
-    public void setAvailable(boolean available) { this.available = available; }
 
     public LocalDateTime getCreatedAt() { return createdAt; }
     public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }
