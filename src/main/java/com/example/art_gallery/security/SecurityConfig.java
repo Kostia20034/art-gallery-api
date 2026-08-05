@@ -62,9 +62,7 @@ public class SecurityConfig {
         CorsConfiguration config = new CorsConfiguration();
         config.addAllowedOrigin("http://localhost:5173");
         config.addAllowedOrigin("http://127.0.0.1:5173");
-        config.addAllowedOrigin("https://product-frontend-vm4l.vercel.app");
-        config.addAllowedOriginPattern("https://*-kostia-s-projects2.vercel.app");
-        config.addAllowedOriginPattern("https://product-frontend-*.vercel.app");
+        config.addAllowedOriginPattern("https://art-gallery-frontend-blue.vercel.app/");
         config.addAllowedMethod("*");
         config.addAllowedHeader("*");
         config.setAllowCredentials(true);
