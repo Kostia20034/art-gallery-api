@@ -2,7 +2,6 @@
 
 Backend REST API for the Art Gallery web application. Built with Spring Boot, it handles artwork management, user authentication, and contact form submissions, backed by a PostgreSQL database.
 
-**Live API:** https://art-gallery-api-production-683f.up.railway.app
 
 ## Features
 
