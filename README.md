@@ -1,154 +1,103 @@
-# 🛒 Product API
+# Art Gallery API
 
-A production-ready RESTful API for product management built with Java Spring Boot and PostgreSQL. Features JWT authentication, Spring Security, pagination, and full CRUD operations.
+Backend REST API for the Art Gallery web application. Built with Spring Boot, it handles artwork management, user authentication, and contact form submissions, backed by a PostgreSQL database.
 
-## 🌐 Live
+**Live API:** https://art-gallery-api-production-683f.up.railway.app
 
-| | URL |
+## Features
+
+- 🔐 JWT-based authentication with role-based access control (Admin / User)
+- 🖼️ Full CRUD for artworks (create, read, update, delete)
+- 📄 Pagination support for artwork listings
+- 📬 Contact form submission and storage
+- 🛡️ Spring Security with stateless session management
+- 🗄️ PostgreSQL persistence via Spring Data JPA / Hibernate
+
+## Tech Stack
+
+- **Java 21**
+- **Spring Boot 3.5**
+- Spring Security
+- Spring Data JPA / Hibernate
+- PostgreSQL
+- JWT (jjwt library)
+- Maven
+
+## Getting Started
+
+### Prerequisites
+
+- Java 21+
+- Maven
+- PostgreSQL (local or remote)
+
+### Setup
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/Kostia20034/art-gallery-api.git
+   cd art-gallery-api
+   ```
+
+2. Configure environment variables (see below) or update `src/main/resources/application.properties` directly for local development.
+
+3. Run the application:
+   ```bash
+   ./mvnw spring-boot:run
+   ```
+
+The API will start on `http://localhost:8080`.
+
+### Environment Variables
+
+| Variable | Description |
 |---|---|
-| 🖥️ Frontend | https://product-frontend-vm4l.vercel.app |
-| 📡 API | https://product-api-production-949c.up.railway.app/api/v1/products |
-| 📖 Swagger UI | https://product-api-production-949c.up.railway.app/swagger-ui/index.html |
+| `DATABASE_URL` | JDBC connection string, e.g. `jdbc:postgresql://host:port/dbname` |
+| `DATABASE_USERNAME` | Database username |
+| `DATABASE_PASSWORD` | Database password |
+| `JWT_SECRET` | Secret key used to sign JWT tokens |
+| `admin.email` | Email address automatically granted `ROLE_ADMIN` on registration |
 
-## 🚀 Tech Stack
+## API Endpoints
 
-| Layer | Technology |
-|---|---|
-| Language | Java 21 |
-| Framework | Spring Boot 3.5 |
-| Database | PostgreSQL |
-| ORM | Spring Data JPA / Hibernate |
-| Security | Spring Security + JWT |
-| Validation | Spring Boot Validation |
-| Docs | SpringDoc OpenAPI (Swagger UI) |
-| DevOps | Docker, Railway |
-| Build Tool | Maven |
+### Auth
 
----
-
-## 📁 Architecture
-
-```
-com.example.First.project/
-├── controller/     # HTTP layer — requests and responses
-├── service/        # Business logic layer
-├── repository/     # Database access layer
-├── model/          # JPA entities
-├── dto/            # Request/Response DTOs
-├── exception/      # Global exception handling
-└── security/       # JWT filter, config, utilities
-```
-
-**Key design decisions:**
-- **DTO pattern** — separates internal entities from API responses
-- **JWT + Spring Security** — stateless authentication, protected routes
-- **Global Exception Handler** — centralized error handling
-- **@Valid** — input validation at controller boundary
-- **Pagination** — efficient data fetching with Spring Data Pageable
-
----
-
-## 📦 API Endpoints
-
-### Auth (Public)
-| Method | Endpoint | Description |
-|---|---|---|
-| POST | `/api/v1/auth/register` | Register new user |
-| POST | `/api/v1/auth/login` | Login + get JWT token |
-
-### Products
-| Method | Endpoint | Auth | Description |
+| Method | Endpoint | Access | Description |
 |---|---|---|---|
-| GET | `/api/v1/products` | ❌ Public | Get all products (paginated) |
-| GET | `/api/v1/products/{id}` | ❌ Public | Get product by ID |
-| GET | `/api/v1/products/search?name=` | ❌ Public | Search by name |
-| POST | `/api/v1/products` | ✅ Required | Create product |
-| PUT | `/api/v1/products/{id}` | ✅ Required | Update product |
-| DELETE | `/api/v1/products/{id}` | ✅ Required | Delete product |
+| POST | `/api/v1/auth/register` | Public | Register a new user |
+| POST | `/api/v1/auth/login` | Public | Log in and receive a JWT |
 
----
+### Artworks
 
-## 🔍 Example Requests
+| Method | Endpoint | Access | Description |
+|---|---|---|---|
+| GET | `/api/v1/artworks` | Public | List artworks (paginated) |
+| GET | `/api/v1/artworks/{id}` | Public | Get a single artwork |
+| POST | `/api/v1/artworks` | Admin only | Create a new artwork |
+| PUT | `/api/v1/artworks/{id}` | Admin only | Update an artwork |
+| DELETE | `/api/v1/artworks/{id}` | Admin only | Delete an artwork |
 
-**Register:**
-```json
-POST /api/v1/auth/register
-{ "email": "user@gmail.com", "password": "secret123" }
+### Contact
 
-Response 200:
-{ "token": "eyJhbGciOiJIUzI1NiJ9..." }
+| Method | Endpoint | Access | Description |
+|---|---|---|---|
+| POST | `/api/v1/contact` | Public | Submit a contact form message |
+
+## Authentication
+
+Protected endpoints require a JWT in the `Authorization` header:
+
+```
+Authorization: Bearer <your-token-here>
 ```
 
-**Create product (with token):**
-```json
-POST /api/v1/products
-Authorization: Bearer eyJhbGci...
-{ "name": "iPhone 15", "price": 999.99 }
+Tokens are obtained via `/api/v1/auth/login` and are valid for 24 hours.
 
-Response 201:
-{ "id": 1, "name": "iPhone 15", "price": 999.99 }
-```
+## Deployment
 
-**Get paginated products:**
-```
-GET /api/v1/products?page=0&size=10
-```
+This service is deployed on [Railway](https://railway.app), connected to a managed PostgreSQL instance in the same project. Environment variables are configured in the Railway service settings.
 
----
 
-## 🐳 Run with Docker (Recommended)
+## License
 
-Make sure Docker Desktop is running:
-
-```bash
-git clone https://github.com/Kostia20034/Product-api.git
-cd Product-api
-docker-compose up
-```
-
-App runs at `http://localhost:8080` — no Java or PostgreSQL installation needed!! ✅
-
----
-
-## ⚙️ Run Locally (Manual)
-
-**Prerequisites:** Java 21, Maven, PostgreSQL
-
-```bash
-git clone https://github.com/Kostia20034/Product-api.git
-cd Product-api
-```
-
-Create database:
-```sql
-CREATE DATABASE product_api;
-```
-
-Edit `src/main/resources/application.properties`:
-```properties
-spring.datasource.url=jdbc:postgresql://localhost:5432/product_api
-spring.datasource.username=postgres
-spring.datasource.password=your_password
-```
-
-```bash
-./mvnw spring-boot:run
-```
-
----
-
-## 📖 API Documentation
-
-Swagger UI available at:
-```
-http://localhost:8080/swagger-ui/index.html
-```
-
----
-
-## 🔮 Roadmap
-
-- [ ] Refresh tokens (proper logout)
-- [ ] Unit + integration tests
-- [ ] CI/CD with GitHub Actions
-- [ ] Rate limiting
+This project is for portfolio/educational purposes.
