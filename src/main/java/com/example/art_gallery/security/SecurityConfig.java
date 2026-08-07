@@ -44,6 +44,7 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.POST, "/api/v1/artworks/**").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.PUT, "/api/v1/artworks/**").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.DELETE, "/api/v1/artworks/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.POST, "/api/v1/images/**").hasRole("ADMIN")
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(jwtFilter,
@@ -62,7 +63,7 @@ public class SecurityConfig {
         CorsConfiguration config = new CorsConfiguration();
         config.addAllowedOrigin("http://localhost:5173");
         config.addAllowedOrigin("http://127.0.0.1:5173");
-        config.addAllowedOriginPattern("https://art-gallery-frontend-blue.vercel.app/");
+        config.addAllowedOriginPattern("https://art-gallery-frontend-blue.vercel.app");
         config.addAllowedMethod("*");
         config.addAllowedHeader("*");
         config.setAllowCredentials(true);
