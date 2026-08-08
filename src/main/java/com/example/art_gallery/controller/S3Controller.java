@@ -23,7 +23,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import software.amazon.awssdk.core.sync.RequestBody;
 import software.amazon.awssdk.services.s3.S3Client;
-import software.amazon.awssdk.services.s3.model.ObjectCannedACL;
 import software.amazon.awssdk.services.s3.model.PutObjectRequest;
 import software.amazon.awssdk.services.s3.model.S3Exception;
 
@@ -92,7 +91,6 @@ public class S3Controller {
                             .bucket(bucketName)
                             .key(key)
                             .contentType(contentType)
-                            .acl(ObjectCannedACL.PUBLIC_READ)
                             .build(),
                     RequestBody.fromInputStream(inputStream, file.getSize())
             );
