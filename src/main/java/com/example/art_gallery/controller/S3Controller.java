@@ -96,10 +96,16 @@ public class S3Controller {
                             .build(),
                     RequestBody.fromInputStream(inputStream, file.getSize())
             );
+        // } catch (S3Exception e) {
+        //     return ResponseEntity.status(HttpStatus.BAD_GATEWAY)
+        //             .body(Map.of("error", "Image upload failed while storing the file in S3"));
+        // } 
         } catch (S3Exception e) {
-            return ResponseEntity.status(HttpStatus.BAD_GATEWAY)
-                    .body(Map.of("error", "Image upload failed while storing the file in S3"));
-        } catch (IOException e) {
+    System.out.println("S3 ERROR: " + e.awsErrorDetails().errorCode() + " - " + e.awsErrorDetails().errorMessage());
+    return ResponseEntity.status(HttpStatus.BAD_GATEWAY)
+            .body(Map.of("error", "Image upload failed while storing the file in S3"));
+}
+        catch (IOException e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body(Map.of("error", "Image upload failed while reading the file"));
         } catch (Exception e) {
