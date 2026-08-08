@@ -1,3 +1,5 @@
+package com.example.art_gallery.controller;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Paths;
