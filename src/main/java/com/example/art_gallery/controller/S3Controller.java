@@ -28,7 +28,7 @@ import software.amazon.awssdk.services.s3.model.S3Exception;
 
 @RestController
 @RequestMapping("/api/v1/images")
-@CrossOrigin(origins = {"http://localhost:5173", "http://127.0.0.1:5173", "https://art-gallery-frontend-blue.vercel.app"})
+@CrossOrigin(origins = {"http://localhost:5173", "http://127.0.0.1:5173", "https://solomia-art-gallery.vercel.app"})
 public class S3Controller {
 
     private static final long MAX_FILE_SIZE_BYTES = 10L * 1024 * 1024;
